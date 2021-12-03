@@ -1,14 +1,14 @@
 import React from "react";
 import "./List.scss";
 import classNames from "classnames";
+import Badge from "../Badge/Badge.jsx";
 
-function List({ items, addActiveStyle }) {
+function List({ items, onClick }) {
   return (
     <div>
-      <ul className="list">
+      <ul onClick={onClick} className="list">
         {items.map((item, index) => (
           <li
-            onClick={() => addActiveStyle(item.id)}
             key={index}
             className={classNames({ active: item.active, opas: item.style })}
           >
@@ -17,7 +17,7 @@ function List({ items, addActiveStyle }) {
                 <img src={item.icon} alt="listIcon" />
               </i>
             ) : (
-              <i className={`badge badge--${item.color}`}></i>
+              <Badge colors={item.color} />
             )}
 
             <span>{item.label}</span>

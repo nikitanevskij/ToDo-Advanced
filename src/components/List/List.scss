@@ -13,34 +13,15 @@
       border-radius: 4px;
     }
 
+    position: relative;
+    left: 3px;
+    margin-right: 15px;
+
     i {
       display: inline-flex;
       margin-right: 8px;
       opacity: 0.5;
     }
-
-    .badge {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      position: relative;
-      left: 3px;
-      margin-right: 15px;
-
-      &--green {
-        background-color: #42b883;
-      }
-      &--blue {
-        background-color: #64c4ed;
-      }
-      &--pink {
-        background-color: #e77db7;
-      }
-      &--yellow {
-        background-color: #d8e436;
-      }
-    }
-
     &.opas {
       opacity: 0.6;
 
