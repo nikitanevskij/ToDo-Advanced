@@ -1,7 +1,7 @@
 import React from "react";
 import "./Badge.scss";
 import classNames from "classnames";
-// {`badge badge--${colors}`}
+
 function Badge({ colors, onClick, className }) {
   return (
     <>

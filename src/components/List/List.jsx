@@ -1,9 +1,18 @@
 import React from "react";
-import "./List.scss";
 import classNames from "classnames";
+
 import Badge from "../Badge/Badge.jsx";
 
-function List({ items, onClick }) {
+import removeSvg from "../../assets/img/remove.svg";
+
+import "./List.scss";
+
+function List({ items, onClick, isRemovable, onRemove }) {
+  const removeList = (id) => {
+    if (window.confirm("Вы действительно хотите удалить список?")) {
+      onRemove(id);
+    }
+  };
   return (
     <div>
       <ul onClick={onClick} className="list">
@@ -20,7 +29,15 @@ function List({ items, onClick }) {
               <Badge colors={item.color} />
             )}
 
-            <span>{item.label}</span>
+            <span>{item.name}</span>
+            {isRemovable && (
+              <img
+                onClick={() => removeList(item.id)}
+                className="list__remove-icon"
+                src={removeSvg}
+                alt="Remove icon"
+              />
+            )}
           </li>
         ))}
       </ul>

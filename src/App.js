@@ -4,30 +4,35 @@ import listSvg from "./assets/img/list.svg";
 
 import AddButtonList from "./components/AddList/AddButtonList";
 import DB from "./assets/db.json";
+
 function App() {
-  const [menu, setMenu] = React.useState([
-    { id: 0, color: "green", label: "Покупки", active: false },
-    { id: 1, color: "blue", label: "Фронтенд", active: false },
-    { id: 2, color: "pink", label: "Фильмы и сериалы", active: false },
-    { id: 3, color: "yellow", label: "Книги", active: false },
-    { id: 4, color: "green", label: "Личное", active: false },
-  ]);
+  const [lists, setLists] = React.useState(
+    DB.lists.map((item) => {
+      item.color = DB.colors.filter(
+        (colors) => colors.id === item.colorId
+      )[0].name;
 
-  // const addActive = (id) => {
-  //   menu.map((item) => (item.active = false));
-  //   const index = menu.map((task) => task.id).indexOf(id);
-  //   menu[index].active = true;
-  //   setMenu([...menu]);
-  // };
+      return item;
+    })
+  );
 
+  const onAddList = (obj) => {
+    const newLists = [...lists, obj]; // так правильно, не делать push! не мутировать!
+    setLists(newLists);
+  };
+
+  const onRemove = (id) => {
+    const newLists = lists.filter((item) => item.id !== id);
+    setLists(newLists);
+  };
   return (
     <div className="todo">
       <div className="todo__sidebar">
         <List
-          items={[{ id: 5, icon: listSvg, label: "Все задачи", active: true }]}
+          items={[{ id: 5, icon: listSvg, name: "Все задачи", active: true }]}
         />
-        <List items={menu} />
-        <AddButtonList colors={DB.colors} />
+        <List items={lists} isRemovable onRemove={onRemove} />
+        <AddButtonList colors={DB.colors} onAddList={onAddList} />
       </div>
       <div className="todo__tasks"></div>
     </div>
