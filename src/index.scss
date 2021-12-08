@@ -13,9 +13,10 @@ body {
   background-color: #b9b9b973;
 }
 .todo {
+  display: flex;
   position: absolute;
   width: 750px;
-  height: 530px;
+  min-height: 490px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -28,9 +29,15 @@ body {
   &__sidebar {
     background-color: #f4f6f8;
     width: 200px;
-    height: calc(100% - 120px);
+    // height: calc(100% - 120px);
+    min-height: 300px;
     border-right: 1px solid #f1f1f1;
     padding: 60px 20px;
+  }
+
+  &__tasks {
+    flex: 1;
+    padding: 60px;
   }
 }
 

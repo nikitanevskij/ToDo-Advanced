@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-
+import axios from "axios";
 import Badge from "../Badge/Badge.jsx";
 
 import removeSvg from "../../assets/img/remove.svg";
@@ -10,6 +10,7 @@ import "./List.scss";
 function List({ items, onClick, isRemovable, onRemove }) {
   const removeList = (id) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
+      axios.delete("http://localhost:3001/lists/" + id);
       onRemove(id);
     }
   };
@@ -26,7 +27,7 @@ function List({ items, onClick, isRemovable, onRemove }) {
                 <img src={item.icon} alt="listIcon" />
               </i>
             ) : (
-              <Badge colors={item.color} />
+              <Badge colors={item.color.name} />
             )}
 
             <span>{item.name}</span>

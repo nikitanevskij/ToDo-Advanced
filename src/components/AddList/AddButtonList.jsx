@@ -2,37 +2,54 @@ import React from "react";
 import List from "../List/List";
 import Badge from "../Badge/Badge";
 
+import axios from "axios";
+
 import addSvg from "../../assets/img/add.svg";
 import closeSvg from "../../assets/img/close.svg";
 
 import "./AddListButton.scss";
 
-function AddButtonList({ colors, onAddList }) {
-  const [visiblePopup, setVisiblePopup] = React.useState(true);
-  const [coloric, setColor] = React.useState(colors[0].id);
+function AddButtonList({ color, onAddList }) {
+  const [visiblePopup, setVisiblePopup] = React.useState(false);
+  const [coloric, setColor] = React.useState(3);
   const [inputValue, setInputValue] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    if (Array.isArray(color)) {
+      setColor(color[0].id);
+    }
+  }, [color]);
 
   const changeValue = (e) => {
     return setInputValue(e.target.value);
   };
+
   const onClose = () => {
     setInputValue("");
     setVisiblePopup(!visiblePopup);
-    setColor(colors[0].id);
+    setColor(color[0].id);
   };
+
   const addList = (name) => {
     if (!inputValue) {
       alert("Введите название списка");
       return;
     }
-    const color = colors.filter((c) => c.id === coloric)[0].name;
-    const newList = {};
-    newList.id = Math.random();
-    newList.name = name;
-    newList.color = color;
+    setIsLoading(true);
+    axios
+      .post("http://localhost:3001/lists", { name: name, colorId: coloric })
+      .then(({ data }) => {
+        const col = color.filter((c) => c.id === coloric)[0].name;
+        const listObj = { ...data, color: { name: col } };
+        onAddList(listObj);
 
-    onAddList(newList);
-    onClose();
+        onClose();
+        setIsLoading(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -68,7 +85,7 @@ function AddButtonList({ colors, onAddList }) {
             placeholder="Введите название"
           ></input>
           <div className="add-list__popup-colors">
-            {colors.map((color) => (
+            {color.map((color) => (
               <Badge
                 onClick={() => setColor(color.id)}
                 key={color.id}
@@ -78,7 +95,7 @@ function AddButtonList({ colors, onAddList }) {
             ))}
           </div>
           <button onClick={() => addList(inputValue)} className="button">
-            Добавить
+            {isLoading ? "Добавление..." : "Добавить"}
           </button>
         </div>
       )}
