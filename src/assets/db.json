@@ -7,7 +7,7 @@
     },
     {
       "id": 2,
-      "name": "Фронтенд",
+      "name": "Фронтенд  ",
       "colorId": 4
     },
     {
@@ -19,6 +19,21 @@
       "id": 4,
       "name": "Книги",
       "colorId": 2
+    },
+    {
+      "name": "ssdsdsd",
+      "colorId": 1,
+      "id": 5
+    },
+    {
+      "name": "sdsd",
+      "colorId": 1,
+      "id": 6
+    },
+    {
+      "name": "sdsdsd",
+      "colorId": 1,
+      "id": 7
     }
   ],
   "tasks": [

@@ -1,24 +1,16 @@
 import React from "react";
-import List from "./components/List/List";
-import listSvg from "./assets/img/list.svg";
 import axios from "axios";
 
-import AddButtonList from "./components/AddList/AddButtonList";
-// import DB from "./assets/db.json";
+import List from "./components/List/List";
 import Tasks from "./components/Tasks/Tasks";
+import AddButtonList from "./components/AddList/AddButtonList";
+
+import listSvg from "./assets/img/list.svg";
 
 function App() {
   const [lists, setLists] = React.useState(null);
   const [colors, setColors] = React.useState(null);
-
-  // DB.lists.map((item) => {
-  //   item.color = DB.colors.filter(
-  //     (colors) => colors.id === item.colorId
-  //   )[0].name;
-
-  //   return item;
-  // })
-  // );
+  const [activeList, setActiveList] = React.useState(null);
 
   React.useEffect(() => {
     axios
@@ -42,6 +34,16 @@ function App() {
     setLists(newLists);
   };
 
+  const onEditTitle = (title, id) => {
+    const newLists = lists.map((item) => {
+      if (item.id === id) {
+        item.name = title;
+      }
+      return item;
+    });
+    setLists(newLists);
+  };
+
   return (
     <div className="todo">
       <div className="todo__sidebar">
@@ -49,14 +51,24 @@ function App() {
           items={[{ id: 5, icon: listSvg, name: "Все задачи", active: true }]}
         />
         {lists ? (
-          <List items={lists} isRemovable onRemove={onRemove} />
+          <List
+            items={lists}
+            isRemovable
+            onRemove={onRemove}
+            activeList={(list) => setActiveList(list)}
+            activeItem={activeList}
+          />
         ) : (
           "...Загрузка"
         )}
 
         <AddButtonList color={colors} onAddList={onAddList} />
       </div>
-      <div className="todo__tasks">{lists && <Tasks list={lists[1]} />}</div>
+      <div className="todo__tasks">
+        {lists && activeList && (
+          <Tasks list={activeList} onEditTitle={onEditTitle} />
+        )}
+      </div>
     </div>
   );
 }

@@ -7,20 +7,32 @@ import removeSvg from "../../assets/img/remove.svg";
 
 import "./List.scss";
 
-function List({ items, onClick, isRemovable, onRemove }) {
+function List({
+  items,
+  onClick,
+  isRemovable,
+  onRemove,
+  activeList,
+  activeItem,
+}) {
   const removeList = (id) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
       axios.delete("http://localhost:3001/lists/" + id);
       onRemove(id);
     }
   };
+
   return (
     <div>
       <ul onClick={onClick} className="list">
         {items.map((item, index) => (
           <li
             key={index}
-            className={classNames({ active: item.active, opas: item.style })}
+            className={classNames({
+              active: activeItem && activeItem.id === item.id,
+              opas: item.style,
+            })}
+            onClick={() => activeList && activeList(item)}
           >
             {item.icon ? (
               <i>
@@ -30,7 +42,9 @@ function List({ items, onClick, isRemovable, onRemove }) {
               <Badge colors={item.color.name} />
             )}
 
-            <span>{item.name}</span>
+            <span>
+              {item.name} {item.tasks && `(${item.tasks.length})`}
+            </span>
             {isRemovable && (
               <img
                 onClick={() => removeList(item.id)}
