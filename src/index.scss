@@ -15,8 +15,8 @@ body {
 .todo {
   display: flex;
   position: absolute;
-  width: 750px;
-  min-height: 490px;
+  width: calc(100vw - 100px);
+  height: calc(100vh - 100px);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -29,7 +29,7 @@ body {
   &__sidebar {
     background-color: #f4f6f8;
     width: 200px;
-    // height: calc(100% - 120px);
+    height: calc(100% - 120px);
     min-height: 300px;
     border-right: 1px solid #f1f1f1;
     padding: 60px 20px;
@@ -38,6 +38,7 @@ body {
   &__tasks {
     flex: 1;
     padding: 60px;
+    overflow: auto;
   }
 }
 

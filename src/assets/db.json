@@ -12,7 +12,7 @@
     },
     {
       "id": 3,
-      "name": "Фильмы и сериалы ",
+      "name": "Фильмы",
       "colorId": 3
     },
     {
@@ -21,28 +21,41 @@
       "colorId": 2
     },
     {
-      "name": "Новый список",
-      "colorId": 3,
+      "name": "Спорт",
+      "colorId": 6,
       "id": 5
-    },
-    {
-      "name": "вававав",
-      "colorId": 1,
-      "id": 6
     }
   ],
   "tasks": [
     {
-      "listId": 3,
-      "text": "вава",
-      "completed": false,
+      "listId": 4,
+      "text": "Английский язык",
+      "completed": true,
       "id": 1
     },
     {
-      "listId": 6,
-      "text": "вавав",
+      "listId": 1,
+      "text": "Продать тренажер",
       "completed": false,
       "id": 2
+    },
+    {
+      "listId": 2,
+      "text": "Подготовка собеседованию",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "listId": 5,
+      "text": "Бег",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "listId": 5,
+      "text": "Ходьба ",
+      "completed": true,
+      "id": 5
     }
   ],
   "colors": [

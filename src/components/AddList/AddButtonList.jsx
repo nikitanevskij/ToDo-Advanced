@@ -40,8 +40,9 @@ function AddButtonList({ color, onAddList }) {
     axios
       .post("http://localhost:3001/lists", { name: name, colorId: coloric })
       .then(({ data }) => {
-        const col = color.filter((c) => c.id === coloric)[0].name;
-        const listObj = { ...data, color: { name: col } };
+        const col = color.filter((c) => c.id === coloric)[0];
+
+        const listObj = { ...data, color: col, tasks: [] };
         onAddList(listObj);
 
         onClose();
