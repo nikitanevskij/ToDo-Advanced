@@ -29,7 +29,9 @@ function List({
           <li
             key={index}
             className={classNames({
-              active: activeItem && activeItem.id === item.id,
+              active: item.active
+                ? item.active
+                : activeItem && activeItem.id === item.id,
               opas: item.style,
             })}
             onClick={() => activeList && activeList(item)}

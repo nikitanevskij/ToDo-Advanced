@@ -1,10 +1,14 @@
 import React from "react";
 import axios from "axios";
+
 import editSvg from "../../assets/img/edit.svg";
 
 import "./Tasks.scss";
+import AddTaskForm from "./AddTaskForm";
 
-function Tasks({ list, onEditTitle }) {
+function Tasks({ list, onEditTitle, onAddTask }) {
+  const [visible, setVisible] = React.useState(true);
+
   const editTitle = () => {
     const newTitle = window.prompt("название списка", list.name);
     if (newTitle) {
@@ -17,6 +21,10 @@ function Tasks({ list, onEditTitle }) {
     }
   };
 
+  const visibleNone = () => {
+    setVisible(!visible);
+  };
+
   return (
     <div className="tasks">
       <h2 className="tasks__title">
@@ -24,7 +32,7 @@ function Tasks({ list, onEditTitle }) {
         <img onClick={editTitle} src={editSvg} alt="edit" />
       </h2>
       <div className="tasks__items">
-        {!list.tasks.length && <h2>Задачи отсутствуют</h2>}
+        {visible ? !list.tasks.length && <h2>Задачи отсутствуют</h2> : " "}
         {list.tasks.map((item) => (
           <div key={item.id} className="tasks__items-row">
             <div className="checkbox">
@@ -50,6 +58,12 @@ function Tasks({ list, onEditTitle }) {
             <input readOnly value={item.text} />
           </div>
         ))}
+
+        <AddTaskForm
+          list={list}
+          onAddTask={onAddTask}
+          visibleNone={visibleNone}
+        />
       </div>
     </div>
   );

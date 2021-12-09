@@ -47,6 +47,9 @@ function AddButtonList({ color, onAddList }) {
         onClose();
         setIsLoading(false);
       })
+      .catch(() => {
+        alert("Ошибка при добавлении задачи");
+      })
       .finally(() => {
         setIsLoading(false);
       });
