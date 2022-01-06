@@ -15,7 +15,7 @@ function App() {
   let location = useLocation();
 
   React.useEffect(() => {
-    axios.get("h/lists?_expand=color&_embed=tasks").then(({ data }) => {
+    axios.get("/lists?_expand=color&_embed=tasks").then(({ data }) => {
       setLists(data);
     });
 
