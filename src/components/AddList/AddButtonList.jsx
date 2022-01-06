@@ -38,7 +38,7 @@ function AddButtonList({ color, onAddList }) {
     }
     setIsLoading(true);
     axios
-      .post("http://localhost:3001/lists", { name: name, colorId: coloric })
+      .post("/lists", { name: name, colorId: coloric })
       .then(({ data }) => {
         const col = color.filter((c) => c.id === coloric)[0];
 

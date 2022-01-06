@@ -15,13 +15,11 @@ function App() {
   let location = useLocation();
 
   React.useEffect(() => {
-    axios
-      .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
-      .then(({ data }) => {
-        setLists(data);
-      });
+    axios.get("h/lists?_expand=color&_embed=tasks").then(({ data }) => {
+      setLists(data);
+    });
 
-    axios.get("http://localhost:3001/colors").then(({ data }) => {
+    axios.get("/colors").then(({ data }) => {
       setColors(data);
     });
   }, []);
@@ -65,7 +63,7 @@ function App() {
         return item;
       });
       setLists(newList);
-      axios.delete("http://localhost:3001/tasks/" + taskId).catch(() => {
+      axios.delete("/tasks/" + taskId).catch(() => {
         alert("Не удалось удалить задачу");
       });
     }
@@ -89,11 +87,9 @@ function App() {
       return item;
     });
     setLists(newList);
-    axios
-      .patch("http://localhost:3001/tasks/" + obj.id, { text: newTaskText })
-      .catch(() => {
-        alert("Не удалось удалить задачу");
-      });
+    axios.patch("/tasks/" + obj.id, { text: newTaskText }).catch(() => {
+      alert("Не удалось удалить задачу");
+    });
   };
 
   const onCompleteTask = (listId, taskId, completed) => {
@@ -109,11 +105,9 @@ function App() {
       return item;
     });
     setLists(newList);
-    axios
-      .patch("http://localhost:3001/tasks/" + taskId, { completed: completed })
-      .catch(() => {
-        alert("Не удалось обновить задачу");
-      });
+    axios.patch("/tasks/" + taskId, { completed: completed }).catch(() => {
+      alert("Не удалось обновить задачу");
+    });
   };
 
   React.useEffect(() => {

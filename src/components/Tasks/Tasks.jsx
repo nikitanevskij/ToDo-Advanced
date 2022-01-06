@@ -21,11 +21,9 @@ function Tasks({
   const editTitle = () => {
     const newTitle = window.prompt("название списка", list.name);
     if (newTitle) {
-      axios
-        .patch("http://localhost:3001/lists/" + list.id, { name: newTitle })
-        .catch(() => {
-          alert("Не удалось отправить запрос");
-        });
+      axios.patch("/lists/" + list.id, { name: newTitle }).catch(() => {
+        alert("Не удалось отправить запрос");
+      });
       onEditTitle(newTitle, list.id);
     }
   };
